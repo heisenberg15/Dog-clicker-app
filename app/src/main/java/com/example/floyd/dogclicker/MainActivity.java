@@ -2,6 +2,7 @@ package com.example.floyd.dogclicker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -23,13 +24,14 @@ public class MainActivity extends AppCompatActivity {
     private AudioManager audioManager = null;
     int action;
     int keyCode;
-    int test = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setContentView(R.layout.activity_main);
+        retrySavedSettings();
+
         settingsActivity = new SettingsActivity();
         mp = MediaPlayer.create(MainActivity.this, R.raw.louder10);
         clickView = (ImageView) findViewById(R.id.click_image_id);
@@ -37,19 +39,19 @@ public class MainActivity extends AppCompatActivity {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
 
-
         initToolbar();
         initControls();
         onButtonClick();
 
-
     }
+
 
     private void initToolbar() {
         mainActivityToolbar = (Toolbar) findViewById(R.id.toolbar_id);
         setSupportActionBar(mainActivityToolbar);
         getSupportActionBar().setTitle(R.string.dog_clicker);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -63,12 +65,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
 
     private void initControls() {
         try {
@@ -104,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
         action = event.getAction();
         keyCode = event.getKeyCode();
 
-        System.out.println(settingsActivity.switchState);
-        if (settingsActivity.switchState == 1) {
+//        System.out.println(SettingsActivity.switchIsOn);
+        if (SettingsActivity.switchIsOn) {
             int action = event.getAction();
             int keyCode = event.getKeyCode();
 
@@ -131,32 +135,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        System.out.println(settingsActivity.switchState);
+//        System.out.println(SettingsActivity.switchIsOn);
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
-            if (settingsActivity.switchState == 0) {
+            if (!SettingsActivity.switchIsOn) {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
-        }else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN){
-            if (settingsActivity.switchState == 0) {
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+            if (!SettingsActivity.switchIsOn) {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
         }
         return super.onKeyUp(keyCode, event);
     }
 
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
-            if (settingsActivity.switchState == 0) {
+            if (!SettingsActivity.switchIsOn) {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
-        }else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP){
-            if (settingsActivity.switchState == 0) {
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            if (!SettingsActivity.switchIsOn) {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
         }
         return super.onKeyDown(keyCode, event);
     }
+
 
     void onButtonClick() {
         clickView.setOnClickListener(new View.OnClickListener() {
@@ -167,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     void makeSound() {
         try {
             mp.start();
@@ -175,5 +182,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    private void retrySavedSettings() {
+        SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+        SettingsActivity.switchIsOn = settings.getBoolean("switchIsOn", false);
+    }
 
 }

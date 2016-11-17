@@ -1,5 +1,6 @@
 package com.example.floyd.dogclicker;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,8 +11,7 @@ import android.widget.Switch;
 public class SettingsActivity extends AppCompatActivity {
     Toolbar toolbar;
     Switch aSwitch;
-
-    static int switchState;
+    static boolean switchIsOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +19,9 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         aSwitch = (Switch) findViewById(R.id.switch_id);
 
-        switchState = 1;
-//        setSwitchState(1);
+
         initToolbar();
-//        checkSwitch();
+        checkSwitch();
     }
 
     void initToolbar() {
@@ -50,21 +49,26 @@ public class SettingsActivity extends AppCompatActivity {
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    setSwitchState(1);
-                } else {
-                    setSwitchState(0);
-                }
+                switchIsOn = isChecked;
             }
         });
     }
 
-    public int getSwitchState() {
-        return switchState;
-    }
 
-    public void setSwitchState(int switchState) {
-        this.switchState = switchState;
-    }
+    @Override
+    protected void onStop() {
+        if (switchIsOn) {
+            SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("switchIsOn", true);
+            editor.commit();
+        } else {
+            SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putBoolean("switchIsOn", false);
+            editor.commit();
+        }
 
+        super.onStop();
+    }
 }

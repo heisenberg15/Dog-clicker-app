@@ -16,13 +16,11 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@android:color/white"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1" />
+        app:titleTextColor="@android:color/white" />
 
     <TextView
         android:id="@+id/switch_text_id"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/switch_text_width"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
@@ -45,20 +43,20 @@
         android:id="@+id/divider_id"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="#20000000"
         app:layout_constraintLeft_toLeftOf="@+id/switch_text_id"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_id" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_text_id" />
 
     <TextView
         android:id="@+id/rate_view_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:foreground="?attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackground"
         android:paddingBottom="18dp"
-        android:paddingTop="18dp"
+        android:paddingTop="24dp"
         android:text="@string/Rate_app"
         android:textColor="@color/settings_text_color"
         android:textSize="16sp"

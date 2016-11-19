@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         aSwitch = (Switch) findViewById(R.id.switch_id);
 
-
+        setSwitchUi();
         initToolbar();
         checkSwitch();
     }
@@ -70,5 +70,13 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         super.onStop();
+    }
+
+    private void setSwitchUi(){
+        if (switchIsOn){
+            aSwitch.setChecked(true);
+        }else {
+            aSwitch.setChecked(false);
+        }
     }
 }

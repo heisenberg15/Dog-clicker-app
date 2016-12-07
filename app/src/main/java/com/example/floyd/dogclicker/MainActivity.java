@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar mainActivityToolbar;
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private AudioManager audioManager = null;
     int action;
     int keyCode;
+    TextView minutesView, secondsView;
+    ImageView incraseMinutes, decraseMinutes, incraseSeconds, decraseSecunds;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
         clickView = (ImageView) findViewById(R.id.click_image_id);
         volumeSeekBar = (SeekBar) findViewById(R.id.seekBar_id);
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        minutesView = (TextView) findViewById(R.id.timer_minute_id);
+        secondsView = (TextView) findViewById(R.id.timer_seconds_id);
+        incraseMinutes = (ImageView) findViewById(R.id.arrow_up_minutes_id);
 
 
         initToolbar();

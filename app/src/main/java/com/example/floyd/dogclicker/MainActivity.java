@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -26,7 +28,11 @@ public class MainActivity extends AppCompatActivity {
     int action;
     int keyCode;
     TextView minutesView, secondsView;
-    ImageView incraseMinutes, decraseMinutes, incraseSeconds, decraseSecunds;
+    ImageView increaseMinutes, decreaseMinutes, increaseSeconds, decreaseSeconds;
+    int minute, second;
+    FloatingActionButton fab;
+    private Handler handler;
+    int secondsCounter = 0;
 
 
     @Override
@@ -43,13 +49,19 @@ public class MainActivity extends AppCompatActivity {
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         minutesView = (TextView) findViewById(R.id.timer_minute_id);
         secondsView = (TextView) findViewById(R.id.timer_seconds_id);
-        incraseMinutes = (ImageView) findViewById(R.id.arrow_up_minutes_id);
-
+        increaseMinutes = (ImageView) findViewById(R.id.arrow_up_minutes_id);
+        decreaseMinutes = (ImageView) findViewById(R.id.arrow_down_minutes_id);
+        increaseSeconds = (ImageView) findViewById(R.id.arrow_up_seconds_id);
+        decreaseSeconds = (ImageView) findViewById(R.id.arrow_down_seconds_id);
+        minute = Integer.parseInt(minutesView.getText().toString());
+        second = Integer.parseInt(secondsView.getText().toString());
+        fab = (FloatingActionButton) findViewById(R.id.fab_id);
+        handler = new Handler();
 
         initToolbar();
         initControls();
         onButtonClick();
-
+        initTimerControls();
     }
 
 
@@ -189,6 +201,92 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    void initTimerControls() {
+        increaseMinutes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (minute != 40) {
+                    minute++;
+                    minutesView.setText(String.valueOf(minute));
+                } else if (minute == 40) {
+                    minute = 0;
+                    minutesView.setText(String.valueOf(minute));
+                }
+            }
+        });
+
+        decreaseMinutes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (minute != 0) {
+                    minute--;
+                    minutesView.setText(String.valueOf(minute));
+                } else if (minute == 0) {
+                    minute = 40;
+                    minutesView.setText(String.valueOf(minute));
+                }
+            }
+        });
+
+        increaseSeconds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (second != 60) {
+                    second++;
+                    secondsView.setText(String.valueOf(second));
+                } else if (second == 60) {
+                    second = 0;
+                    secondsView.setText(String.valueOf(second));
+                }
+            }
+        });
+
+        decreaseSeconds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (second != 0) {
+                    second--;
+                    secondsView.setText(String.valueOf(second));
+                } else if (second == 0) {
+                    second = 60;
+                    secondsView.setText(String.valueOf(second));
+                }
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+
+                        second--;
+                        if (second == 0) {
+                            secondsView.setText(String.valueOf(second));
+                            if (minute==0){
+                                return;
+                            }
+                            minute--;
+                            minutesView.setText(String.valueOf(minute));
+                            second = 60;
+                        } else {
+                            secondsView.setText(String.valueOf(second));
+                        }
+
+
+                        handler.postDelayed(this, 1000);
+
+                    }
+                };
+
+                handler.postDelayed(runnable, 1000);
+
+            }
+        });
+
+    }
 
     private void retrySavedSettings() {
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);

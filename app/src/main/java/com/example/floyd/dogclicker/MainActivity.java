@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     int minute, second;
     FloatingActionButton fab;
     private Handler handler;
-    int secondsCounter = 0;
+    boolean timerIsOn = false;
 
 
     @Override
@@ -231,10 +231,13 @@ public class MainActivity extends AppCompatActivity {
         increaseSeconds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (second != 60) {
+                if (timerIsOn) {
+                    return;
+                }
+                if (second != 59) {
                     second++;
                     secondsView.setText(String.valueOf(second));
-                } else if (second == 60) {
+                } else if (second == 59) {
                     second = 0;
                     secondsView.setText(String.valueOf(second));
                 }
@@ -244,11 +247,14 @@ public class MainActivity extends AppCompatActivity {
         decreaseSeconds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (timerIsOn) {
+                    return;
+                }
                 if (second != 0) {
                     second--;
                     secondsView.setText(String.valueOf(second));
                 } else if (second == 0) {
-                    second = 60;
+                    second = 59;
                     secondsView.setText(String.valueOf(second));
                 }
             }
@@ -258,19 +264,37 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                timerIsOn = !timerIsOn;
+
                 final Runnable runnable = new Runnable() {
                     @Override
                     public void run() {
 
+
+                        if (minute == 0 && second == 0) {
+                            return;
+                        }
+
+                        if (minute != 0 && second == 0) {
+                            second = 60;
+                            minute--;
+                            secondsView.setText(String.valueOf(second));
+                            minutesView.setText(String.valueOf(minute));
+                        }
+
                         second--;
+
                         if (second == 0) {
                             secondsView.setText(String.valueOf(second));
-                            if (minute==0){
+                            if (minute == 0) {
                                 return;
                             }
+
                             minute--;
+                            if (minute == 0) {
+                                second = 60;
+                            }
                             minutesView.setText(String.valueOf(minute));
-                            second = 60;
                         } else {
                             secondsView.setText(String.valueOf(second));
                         }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,12 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity
+{
     Toolbar mainActivityToolbar;
     SeekBar volumeSeekBar = null;
     ImageView clickView;
@@ -33,17 +36,24 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton fab;
     private Handler handler;
     boolean timerIsOn = false;
+    boolean minuteIsZero;
+    boolean isFastClick;
+    CountDownTimer countDownTimer;
+    int timeLeft;
 
+    long startTime;
+    long difference;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         setContentView(R.layout.activity_main);
         retrySavedSettings();
 
         settingsActivity = new SettingsActivity();
-        mp = MediaPlayer.create(MainActivity.this, R.raw.louder10);
+        mp = MediaPlayer.create(MainActivity.this, R.raw.clicker_mono7);
         clickView = (ImageView) findViewById(R.id.click_image_id);
         volumeSeekBar = (SeekBar) findViewById(R.id.seekBar_id);
         audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -57,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
         second = Integer.parseInt(secondsView.getText().toString());
         fab = (FloatingActionButton) findViewById(R.id.fab_id);
         handler = new Handler();
+        startTime = 0;
+        difference = 0;
+        isFastClick = false;
 
         initToolbar();
         initControls();
@@ -65,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initToolbar() {
+    private void initToolbar()
+    {
         mainActivityToolbar = (Toolbar) findViewById(R.id.toolbar_id);
         setSupportActionBar(mainActivityToolbar);
         getSupportActionBar().setTitle(R.string.dog_clicker);
@@ -73,7 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         switch (item.getItemId()) {
             case R.id.menu_settings_id:
                 Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
@@ -86,14 +101,16 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
 
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
 
-    private void initControls() {
+    private void initControls()
+    {
         try {
             volumeSeekBar.setMax(audioManager
                     .getStreamMaxVolume(AudioManager.STREAM_MUSIC));
@@ -101,17 +118,21 @@ public class MainActivity extends AppCompatActivity {
                     .getStreamVolume(AudioManager.STREAM_MUSIC));
 
 
-            volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            volumeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+            {
                 @Override
-                public void onStopTrackingTouch(SeekBar arg0) {
+                public void onStopTrackingTouch(SeekBar arg0)
+                {
                 }
 
                 @Override
-                public void onStartTrackingTouch(SeekBar arg0) {
+                public void onStartTrackingTouch(SeekBar arg0)
+                {
                 }
 
                 @Override
-                public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+                public void onProgressChanged(SeekBar arg0, int progress, boolean arg2)
+                {
                     audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
                             progress, 0);
                 }
@@ -123,7 +144,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
+    public boolean dispatchKeyEvent(KeyEvent event)
+    {
         action = event.getAction();
         keyCode = event.getKeyCode();
 
@@ -153,7 +175,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onKeyUp(int keyCode, KeyEvent event) {
+    public boolean onKeyUp(int keyCode, KeyEvent event)
+    {
 //        System.out.println(SettingsActivity.switchIsOn);
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
             if (!SettingsActivity.switchIsOn) {
@@ -169,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
             if (!SettingsActivity.switchIsOn) {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
@@ -183,17 +207,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    void onButtonClick() {
-        clickView.setOnClickListener(new View.OnClickListener() {
+    void onButtonClick()
+    {
+        clickView.setOnTouchListener(new View.OnTouchListener()
+        {
             @Override
-            public void onClick(View v) {
+            public boolean onTouch(View v, MotionEvent event)
+            {
                 makeSound();
+                return false;
             }
         });
     }
 
 
-    void makeSound() {
+    void makeSound()
+    {
         try {
             mp.start();
         } catch (Exception e) {
@@ -201,10 +230,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    void initTimerControls() {
-        increaseMinutes.setOnClickListener(new View.OnClickListener() {
+    void initTimerControls()
+    {
+        increaseMinutes.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 if (minute != 40) {
                     minute++;
                     minutesView.setText(String.valueOf(minute));
@@ -215,9 +247,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        decreaseMinutes.setOnClickListener(new View.OnClickListener() {
+        decreaseMinutes.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 if (minute != 0) {
                     minute--;
                     minutesView.setText(String.valueOf(minute));
@@ -228,9 +262,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        increaseSeconds.setOnClickListener(new View.OnClickListener() {
+        increaseSeconds.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 if (timerIsOn) {
                     return;
                 }
@@ -244,9 +280,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        decreaseSeconds.setOnClickListener(new View.OnClickListener() {
+        decreaseSeconds.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 if (timerIsOn) {
                     return;
                 }
@@ -260,59 +298,170 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
                 timerIsOn = !timerIsOn;
+                timeLeft = (minute * 60) + second;
 
-                final Runnable runnable = new Runnable() {
-                    @Override
-                    public void run() {
-
-
-                        if (minute == 0 && second == 0) {
-                            return;
-                        }
-
-                        if (minute != 0 && second == 0) {
-                            second = 60;
-                            minute--;
+                if (timerIsOn)
+                {
+                    fab.setImageResource(R.drawable.ic_pause_white_24px);
+                    countDownTimer = new CountDownTimer(timeLeft * 1000, 1000)
+                    {
+                        @Override
+                        public void onTick(long millisUntilFinished)
+                        {
                             secondsView.setText(String.valueOf(second));
-                            minutesView.setText(String.valueOf(minute));
-                        }
 
-                        second--;
-
-                        if (second == 0) {
-                            secondsView.setText(String.valueOf(second));
-                            if (minute == 0) {
-                                return;
-                            }
-
-                            minute--;
-                            if (minute == 0) {
+                            if (second == 0 && minute != 0)
+                            {
+                                minute--;
+                                minutesView.setText(String.valueOf(minute));
                                 second = 60;
+
                             }
-                            minutesView.setText(String.valueOf(minute));
-                        } else {
-                            secondsView.setText(String.valueOf(second));
+
+                            second--;
                         }
 
+                        @Override
+                        public void onFinish()
+                        {
+                            secondsView.setText(String.valueOf(0));
+                            fab.setImageResource(R.drawable.ic_play_arrow_white_24px);
+                            second = 0;
+                            minute = 0;
+                            timerIsOn = false;
+                        }
+                    }.start();
 
-                        handler.postDelayed(this, 1000);
+                } else {
+                    pauseTimer();
+                }
 
-                    }
-                };
+//                if (second == 1)
+//                {
+//                    second = 59;
+//                }
+//
+//                if (second == 0 && minute != 0)
+//                {
+//                    minute--;
+//                    minutesView.setText(minute);
+//                }
 
-                handler.postDelayed(runnable, 1000);
-
+//                timerIsOn = !timerIsOn;
+//
+//                if (!timerIsOn) {
+//                    startTime = SystemClock.elapsedRealtime();
+//                    System.out.println("Start Time: " + startTime);
+//                }
+//
+//                if (timerIsOn) {
+//                    difference = (SystemClock.elapsedRealtime() - startTime) / 1000 % 60;
+//                    System.out.println("Difference: " + difference);
+//                }
+//
+//                // Setting fab image
+//                if (timerIsOn) {
+//
+//                    if (minute == 0 && second == 0) {
+//                        return;
+//                    }
+//
+//                    fab.setImageResource(R.drawable.ic_pause_white_24px);
+//                } else {
+//                    fab.setImageResource(R.drawable.ic_play_arrow_white_24px);
+//                }
+//
+//                if (difference == 0) {
+//                    isFastClick = true;
+//                    System.out.println(isFastClick);
+//                } else {
+//                    isFastClick = false;
+//                    System.out.println(isFastClick);
+//                }
+//
+//                if (!isFastClick) {
+//
+//                    final Runnable runnable = new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//
+//                            if (!timerIsOn) {
+//                                minutesView.setText(String.valueOf(minute));
+//                                secondsView.setText(String.valueOf(second));
+//                                return;
+//                            }
+//
+//                            if (minute == 0 && second == 0) {
+//                                timerIsOn = false;
+//                                return;
+//                            }
+//
+//                            if (minute != 0 && second == 0) {
+//                                minuteIsZero = false;
+//
+//                                if (!minuteIsZero) {
+//                                    second = 60;
+//                                    minute--;
+//                                    secondsView.setText(String.valueOf(second));
+//                                    minutesView.setText(String.valueOf(minute));
+//                                }
+//
+//                            }
+//
+//                            second--;
+//
+//                            if (second == 0) {
+//                                secondsView.setText(String.valueOf(second));
+//                                if (minute == 0) {
+//                                    timerIsOn = false;
+//                                    fab.setImageResource(R.drawable.ic_play_arrow_white_24px);
+//                                    return;
+//                                }
+//
+//                                if (minuteIsZero) {
+//                                    minute--;
+//                                }
+//
+//                                minuteIsZero = true;
+//
+//                                if (minute == 0) {
+//                                    second = 60;
+//                                }
+//                                minutesView.setText(String.valueOf(minute));
+//                            } else {
+//                                secondsView.setText(String.valueOf(second));
+//                            }
+//
+//
+//                            handler.postDelayed(this, 1000);
+//
+//                        }
+//                    };
+//
+//
+//                    handler.postDelayed(runnable, 1000);
+//
+//                }
             }
         });
 
     }
 
-    private void retrySavedSettings() {
+    private void pauseTimer(){
+        countDownTimer.cancel();
+        fab.setImageResource(R.drawable.ic_play_arrow_white_24px);
+    }
+
+    private void retrySavedSettings()
+    {
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
         SettingsActivity.switchIsOn = settings.getBoolean("switchIsOn", false);
     }

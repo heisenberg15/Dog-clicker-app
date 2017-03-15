@@ -6,4 +6,6 @@
     <string name="Rate_app">Rate the app on the Play Store!</string>
     <string name="use_volume_buttons_to_make_sound">Use volume buttons to make sound</string>
     <string name="menu_settings_help">Help</string>
+    <string name="help_dialog_helper">How to use DogClicker</string>
+    <string name="cancel">CANCEL</string>
 </resources>

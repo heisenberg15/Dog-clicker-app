@@ -8,9 +8,11 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.example.floyd.dogclicker.dialog.HelpDialog;
+
+import java.io.Console;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -36,13 +42,10 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab;
     private Handler handler;
     boolean timerIsOn = false;
-    boolean minuteIsZero;
-    boolean isFastClick;
     CountDownTimer countDownTimer;
     int timeLeft;
+    private Vibrator vibrator;
 
-    long startTime;
-    long difference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -67,9 +70,6 @@ public class MainActivity extends AppCompatActivity
         second = Integer.parseInt(secondsView.getText().toString());
         fab = (FloatingActionButton) findViewById(R.id.fab_id);
         handler = new Handler();
-        startTime = 0;
-        difference = 0;
-        isFastClick = false;
 
         initToolbar();
         initControls();
@@ -89,11 +89,15 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case R.id.menu_settings_id:
                 Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity(settingsIntent);
                 break;
+            case R.id.menu_settings_help_id:
+                HelpDialog helpDialog = new HelpDialog();
+                helpDialog.show(getFragmentManager(), "helpDialog");
         }
 
         return super.onOptionsItemSelected(item);
@@ -111,7 +115,8 @@ public class MainActivity extends AppCompatActivity
 
     private void initControls()
     {
-        try {
+        try
+        {
             volumeSeekBar.setMax(audioManager
                     .getStreamMaxVolume(AudioManager.STREAM_MUSIC));
             volumeSeekBar.setProgress(audioManager
@@ -137,7 +142,8 @@ public class MainActivity extends AppCompatActivity
                             progress, 0);
                 }
             });
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
@@ -150,18 +156,22 @@ public class MainActivity extends AppCompatActivity
         keyCode = event.getKeyCode();
 
 //        System.out.println(SettingsActivity.switchIsOn);
-        if (SettingsActivity.switchIsOn) {
+        if (SettingsActivity.switchIsOn)
+        {
             int action = event.getAction();
             int keyCode = event.getKeyCode();
 
-            switch (keyCode) {
+            switch (keyCode)
+            {
                 case KeyEvent.KEYCODE_VOLUME_UP:
-                    if (action == KeyEvent.ACTION_DOWN) {
+                    if (action == KeyEvent.ACTION_DOWN)
+                    {
                         makeSound();
                     }
                     return true;
                 case KeyEvent.KEYCODE_VOLUME_DOWN:
-                    if (action == KeyEvent.ACTION_DOWN) {
+                    if (action == KeyEvent.ACTION_DOWN)
+                    {
                         makeSound();
                     }
                     return true;
@@ -178,12 +188,16 @@ public class MainActivity extends AppCompatActivity
     public boolean onKeyUp(int keyCode, KeyEvent event)
     {
 //        System.out.println(SettingsActivity.switchIsOn);
-        if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
-            if (!SettingsActivity.switchIsOn) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP))
+        {
+            if (!SettingsActivity.switchIsOn)
+            {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            if (!SettingsActivity.switchIsOn) {
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)
+        {
+            if (!SettingsActivity.switchIsOn)
+            {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
         }
@@ -194,12 +208,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
-        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
-            if (!SettingsActivity.switchIsOn) {
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN))
+        {
+            if (!SettingsActivity.switchIsOn)
+            {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
-        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
-            if (!SettingsActivity.switchIsOn) {
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP)
+        {
+            if (!SettingsActivity.switchIsOn)
+            {
                 volumeSeekBar.setProgress(audioManager.getStreamVolume(AudioManager.STREAM_MUSIC));
             }
         }
@@ -223,12 +241,15 @@ public class MainActivity extends AppCompatActivity
 
     void makeSound()
     {
-        try {
+        try
+        {
             mp.start();
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
+
 
     void initTimerControls()
     {
@@ -237,10 +258,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if (minute != 40) {
+                if (minute != 40)
+                {
                     minute++;
                     minutesView.setText(String.valueOf(minute));
-                } else if (minute == 40) {
+                } else if (minute == 40)
+                {
                     minute = 0;
                     minutesView.setText(String.valueOf(minute));
                 }
@@ -252,10 +275,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if (minute != 0) {
+                if (minute != 0)
+                {
                     minute--;
                     minutesView.setText(String.valueOf(minute));
-                } else if (minute == 0) {
+                } else if (minute == 0)
+                {
                     minute = 40;
                     minutesView.setText(String.valueOf(minute));
                 }
@@ -267,13 +292,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if (timerIsOn) {
+                if (timerIsOn)
+                {
                     return;
                 }
-                if (second != 59) {
+                if (second != 59)
+                {
                     second++;
                     secondsView.setText(String.valueOf(second));
-                } else if (second == 59) {
+                } else if (second == 59)
+                {
                     second = 0;
                     secondsView.setText(String.valueOf(second));
                 }
@@ -285,13 +313,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
-                if (timerIsOn) {
+                if (timerIsOn)
+                {
                     return;
                 }
-                if (second != 0) {
+                if (second != 0)
+                {
                     second--;
                     secondsView.setText(String.valueOf(second));
-                } else if (second == 0) {
+                } else if (second == 0)
+                {
                     second = 59;
                     secondsView.setText(String.valueOf(second));
                 }
@@ -333,13 +364,30 @@ public class MainActivity extends AppCompatActivity
                         {
                             secondsView.setText(String.valueOf(0));
                             fab.setImageResource(R.drawable.ic_play_arrow_white_24px);
+
+                            long[] pattern = {0, 400, 100, 400};
+
+                            if (second != 0)
+                            {
+                                vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                                vibrator.vibrate(pattern, -1);
+                            }
+
                             second = 0;
                             minute = 0;
                             timerIsOn = false;
+//                            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                            if (notification != null)
+//                            {
+//                                Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+//                                r.play();
+//                            }\
+
                         }
                     }.start();
 
-                } else {
+                } else
+                {
                     pauseTimer();
                 }
 
@@ -455,10 +503,13 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    private void pauseTimer(){
+
+    private void pauseTimer()
+    {
         countDownTimer.cancel();
         fab.setImageResource(R.drawable.ic_play_arrow_white_24px);
     }
+
 
     private void retrySavedSettings()
     {

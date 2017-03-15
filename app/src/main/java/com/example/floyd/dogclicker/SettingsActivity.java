@@ -8,13 +8,15 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity
+{
     Toolbar toolbar;
     Switch aSwitch;
     static boolean switchIsOn;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         aSwitch = (Switch) findViewById(R.id.switch_id);
@@ -24,7 +26,8 @@ public class SettingsActivity extends AppCompatActivity {
         checkSwitch();
     }
 
-    void initToolbar() {
+    void initToolbar()
+    {
         toolbar = (Toolbar) findViewById(R.id.settings_toolbar_id);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -33,9 +36,11 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
-        switch (item.getItemId()) {
+        switch (item.getItemId())
+        {
             case android.R.id.home:
                 onBackPressed();
                 break;
@@ -45,10 +50,13 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    private void checkSwitch() {
-        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+    private void checkSwitch()
+    {
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
                 switchIsOn = isChecked;
             }
         });
@@ -56,13 +64,16 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onStop() {
-        if (switchIsOn) {
+    protected void onStop()
+    {
+        if (switchIsOn)
+        {
             SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("switchIsOn", true);
             editor.commit();
-        } else {
+        } else
+        {
             SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
             SharedPreferences.Editor editor = settings.edit();
             editor.putBoolean("switchIsOn", false);
@@ -72,10 +83,13 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStop();
     }
 
-    private void setSwitchUi(){
-        if (switchIsOn){
+    private void setSwitchUi()
+    {
+        if (switchIsOn)
+        {
             aSwitch.setChecked(true);
-        }else {
+        } else
+        {
             aSwitch.setChecked(false);
         }
     }

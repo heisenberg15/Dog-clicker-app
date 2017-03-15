@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
@@ -7,7 +8,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.floyd.dogclicker.MainActivity">
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/toolbar_id"
         android:layout_width="0dp"
@@ -16,7 +18,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@android:color/white" />
+        app:titleTextColor="@android:color/white"/>
 
     <View
         android:layout_width="0dp"
@@ -24,7 +26,7 @@
         android:background="@drawable/shadow"
         app:layout_constraintBottom_toTopOf="@+id/timer_background_id"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"/>
 
 
     <android.support.constraint.ConstraintLayout
@@ -48,7 +50,7 @@
             android:textSize="15sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
             android:id="@+id/arrow_up_minutes_id"
@@ -59,20 +61,20 @@
             app:layout_constraintLeft_toLeftOf="@+id/timer_minute_id"
             app:layout_constraintRight_toRightOf="@+id/timer_minute_id"
             app:srcCompat="@drawable/ic_arrow_drop_up_white_24px"
-            tools:ignore="MissingPrefix" />
+            tools:ignore="MissingPrefix"/>
 
         <TextView
             android:id="@+id/timer_minute_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="2dp"
             android:text="0"
             android:textColor="@android:color/white"
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/set_training_timer_id"
             app:layout_constraintTop_toBottomOf="@+id/set_training_timer_id"
-            app:layout_constraintVertical_bias="0.55" />
+            app:layout_constraintVertical_bias="0.55"/>
 
 
         <ImageView
@@ -84,7 +86,7 @@
             app:layout_constraintRight_toRightOf="@+id/timer_minute_id"
             app:layout_constraintTop_toBottomOf="@+id/timer_minute_id"
             app:srcCompat="@drawable/ic_arrow_drop_down_white_24px"
-            tools:ignore="MissingPrefix" />
+            tools:ignore="MissingPrefix"/>
 
         <TextView
             android:id="@+id/colon_id"
@@ -97,7 +99,7 @@
             android:textSize="21sp"
             app:layout_constraintBottom_toBottomOf="@id/timer_minute_id"
             app:layout_constraintLeft_toRightOf="@id/timer_minute_id"
-            app:layout_constraintTop_toTopOf="@+id/timer_minute_id" />
+            app:layout_constraintTop_toTopOf="@+id/timer_minute_id"/>
 
         <ImageView
             android:id="@+id/arrow_up_seconds_id"
@@ -108,7 +110,7 @@
             app:layout_constraintLeft_toLeftOf="@+id/timer_seconds_id"
             app:layout_constraintRight_toRightOf="@+id/timer_seconds_id"
             app:srcCompat="@drawable/ic_arrow_drop_up_white_24px"
-            tools:ignore="MissingPrefix" />
+            tools:ignore="MissingPrefix"/>
 
         <TextView
             android:id="@+id/timer_seconds_id"
@@ -119,7 +121,7 @@
             android:textColor="@android:color/white"
             android:textSize="27sp"
             app:layout_constraintBottom_toBottomOf="@id/timer_minute_id"
-            app:layout_constraintLeft_toLeftOf="@+id/colon_id" />
+            app:layout_constraintLeft_toLeftOf="@+id/colon_id"/>
 
         <ImageView
             android:id="@+id/arrow_down_seconds_id"
@@ -130,7 +132,7 @@
             app:layout_constraintRight_toRightOf="@+id/timer_seconds_id"
             app:layout_constraintTop_toBottomOf="@+id/timer_seconds_id"
             app:srcCompat="@drawable/ic_arrow_drop_down_white_24px"
-            tools:ignore="MissingPrefix" />
+            tools:ignore="MissingPrefix"/>
 
 
     </android.support.constraint.ConstraintLayout>
@@ -148,7 +150,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer_background_id"
         app:srcCompat="@drawable/ic_play_arrow_white_24px"
-        tools:ignore="MissingPrefix" />
+        tools:ignore="MissingPrefix"/>
 
     <ImageView
         android:id="@+id/volume_icon_id"
@@ -159,7 +161,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="@+id/seekBar_id"
         app:srcCompat="@drawable/ic_volume_up_black_36px"
-        tools:ignore="MissingPrefix" />
+        tools:ignore="MissingPrefix"/>
 
     <SeekBar
         android:id="@+id/seekBar_id"
@@ -173,7 +175,7 @@
         app:layout_constraintLeft_toRightOf="@+id/volume_icon_id"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer_background_id"
-        app:layout_constraintVertical_bias="0.70" />
+        app:layout_constraintVertical_bias="0.70"/>
 
     <ImageView
         android:id="@+id/click_image_id"
@@ -184,7 +186,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer_background_id"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.6"/>
 
 
 </android.support.constraint.ConstraintLayout>

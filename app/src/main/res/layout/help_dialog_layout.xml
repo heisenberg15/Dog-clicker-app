@@ -2,8 +2,9 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="300dp"
+    android:layout_height="200dp"
+    android:minHeight="100dp"
+    android:id="@+id/linear"
     android:minWidth="500dp"
     android:orientation="vertical">
 
@@ -29,36 +30,48 @@
         android:textStyle="bold"/>
 
     <View
+        android:id="@+id/divider_top_id"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shadow"/>
+        android:visibility="invisible"
+        android:layout_marginTop="11dp"
+        android:background="#cccccc"/>
 
     <ScrollView
         android:id="@+id/dialog_scroller_id"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="@dimen/dialog_scroll_height">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="11dp"
             android:layout_marginRight="11dp"
+            android:layout_marginTop="2dp"
             android:lineSpacingExtra="1dp"
             android:text="How to use clicker text em ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Doneem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Done em ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Done em ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Done"
+            android:textColor="@color/settings_text_color"
             android:textSize="15sp"/>
     </ScrollView>
+
+    <View
+        android:id="@+id/divider_bottom_id"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#cccccc"/>
 
     <TextView
         android:id="@+id/cancel_dialog_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="11dp"
         android:layout_marginRight="11dp"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="10dp"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
         android:padding="8dp"
         android:text="@string/cancel"
         android:textColor="@color/colorAccent"

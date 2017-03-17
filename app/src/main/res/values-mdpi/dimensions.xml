@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="switch_text_width">160dp</dimen>
+    <dimen name="dialog_scroll_height">200dp</dimen>
 </resources>

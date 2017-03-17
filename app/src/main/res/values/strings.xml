@@ -8,4 +8,5 @@
     <string name="menu_settings_help">Help</string>
     <string name="help_dialog_helper">How to use DogClicker</string>
     <string name="cancel">CANCEL</string>
+    <string name="set_training_timer">Set training timer</string>
 </resources>

@@ -9,10 +9,12 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,8 +25,6 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.floyd.dogclicker.dialog.HelpDialog;
-
-import java.io.Console;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity
     CountDownTimer countDownTimer;
     int timeLeft;
     private Vibrator vibrator;
+    ConstraintLayout mainLayout;
+    CoordinatorLayout coordinatorLayout;
 
 
     @Override
@@ -69,7 +71,9 @@ public class MainActivity extends AppCompatActivity
         minute = Integer.parseInt(minutesView.getText().toString());
         second = Integer.parseInt(secondsView.getText().toString());
         fab = (FloatingActionButton) findViewById(R.id.fab_id);
+        mainLayout = (ConstraintLayout) findViewById(R.id.activity_main);
         handler = new Handler();
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout_id);
 
         initToolbar();
         initControls();
@@ -258,6 +262,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                if (timerIsOn)
+                {
+                    return;
+                }
+
                 if (minute != 40)
                 {
                     minute++;
@@ -275,6 +284,11 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v)
             {
+                if (timerIsOn)
+                {
+                    return;
+                }
+
                 if (minute != 0)
                 {
                     minute--;
@@ -296,6 +310,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     return;
                 }
+
                 if (second != 59)
                 {
                     second++;
@@ -317,6 +332,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     return;
                 }
+
                 if (second != 0)
                 {
                     second--;
@@ -338,6 +354,7 @@ public class MainActivity extends AppCompatActivity
                 timerIsOn = !timerIsOn;
                 timeLeft = (minute * 60) + second;
 
+
                 if (timerIsOn)
                 {
                     fab.setImageResource(R.drawable.ic_pause_white_24px);
@@ -353,7 +370,6 @@ public class MainActivity extends AppCompatActivity
                                 minute--;
                                 minutesView.setText(String.valueOf(minute));
                                 second = 60;
-
                             }
 
                             second--;
@@ -371,6 +387,11 @@ public class MainActivity extends AppCompatActivity
                             {
                                 vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                                 vibrator.vibrate(pattern, -1);
+                                Snackbar snackBar = Snackbar.make(coordinatorLayout, "Time's up", Snackbar.LENGTH_LONG);
+//                                View view = snackBar.getView();
+//                                TextView textView = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
+//                                textView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));
+                                snackBar.show();
                             }
 
                             second = 0;

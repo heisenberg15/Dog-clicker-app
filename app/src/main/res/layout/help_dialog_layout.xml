@@ -3,6 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools1="http://schemas.android.com/tools"
     android:minHeight="100dp"
     android:id="@+id/linear"
     android:minWidth="500dp"
@@ -21,9 +23,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="11dp"
-        android:layout_marginStart="11dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="20dp"
+        android:alpha="0.87"
         android:text="@string/help_dialog_helper"
         android:textColor="@color/settings_text_color"
         android:textSize="20sp"
@@ -36,7 +39,8 @@
         android:layout_gravity="bottom"
         android:visibility="invisible"
         android:layout_marginTop="11dp"
-        android:background="#cccccc"/>
+        android:alpha="0.12"
+        android:background="@android:color/black"/>
 
     <ScrollView
         android:id="@+id/dialog_scroller_id"
@@ -46,12 +50,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="11dp"
-            android:layout_marginRight="11dp"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
             android:layout_marginTop="2dp"
+            android:alpha="0.54"
             android:lineSpacingExtra="1dp"
             android:text="How to use clicker text em ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Doneem ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Done em ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Done em ipsum dolor sit amet, consectetur adipiscing elit. Duis ut ipsum lacinia, fermentum neque quis, iaculis lectus. Nullam et semper magna. Donec nunc lorem, tempor eu risus laoreet, auctor tristique tortor. Aenean accumsan sollicitudin dolor, vitae fringilla felis laoreet nec. Nulla facilisi. Mauris nec ante luctus, sollicitudin dui in, imperdiet mi. Vestibulum laoreet sem id sem blandit ornare. Ut aliquet maximus odio eu dapibus. Aenean lacinia diam id urna mattis finibus. Duis nec pretium ipsum. Donec ut auctor nisl, sit amet laoreet tellus. Ut tempus molestie dolor vel placerat. Done"
-            android:textColor="@color/settings_text_color"
+            android:textColor="@android:color/black"
             android:textSize="15sp"/>
     </ScrollView>
 
@@ -59,7 +64,8 @@
         android:id="@+id/divider_bottom_id"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#cccccc"/>
+        android:alpha="0.12"
+        android:background="@android:color/black"/>
 
     <TextView
         android:id="@+id/cancel_dialog_id"

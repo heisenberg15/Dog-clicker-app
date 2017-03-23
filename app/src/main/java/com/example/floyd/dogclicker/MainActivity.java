@@ -15,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity
     FloatingActionButton fab;
     private Handler handler;
     boolean timerIsOn = false;
+    boolean check = false;
     CountDownTimer countDownTimer;
     int timeLeft;
     private Vibrator vibrator;
@@ -358,18 +360,29 @@ public class MainActivity extends AppCompatActivity
                 if (timerIsOn)
                 {
                     fab.setImageResource(R.drawable.ic_pause_white_24px);
-                    countDownTimer = new CountDownTimer(timeLeft * 1000, 1000)
+                    countDownTimer = new CountDownTimer(timeLeft * 1000 + 1000, 1000)
                     {
                         @Override
                         public void onTick(long millisUntilFinished)
                         {
+
+
+                            check = true;
                             secondsView.setText(String.valueOf(second));
 
                             if (second == 0 && minute != 0)
                             {
                                 minute--;
-                                minutesView.setText(String.valueOf(minute));
+                                oneSecDelay.start();
                                 second = 60;
+                            }
+
+                            Log.i("zaza", "Second : " + second);
+                            Log.i("zaza", "Timer is on : " + timerIsOn);
+
+                            if (second == 0)
+                            {
+                                return;
                             }
 
                             second--;
@@ -378,12 +391,14 @@ public class MainActivity extends AppCompatActivity
                         @Override
                         public void onFinish()
                         {
+                            Log.i("zaza", "Timer is on : " + timerIsOn);
                             secondsView.setText(String.valueOf(0));
                             fab.setImageResource(R.drawable.ic_play_arrow_white_24px);
+                            Log.i("zaza", " Finished Second : " + second);
 
                             long[] pattern = {0, 400, 100, 400};
 
-                            if (second != 0)
+                            if (second == 0 && check)
                             {
                                 vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                                 vibrator.vibrate(pattern, -1);
@@ -397,6 +412,8 @@ public class MainActivity extends AppCompatActivity
                             second = 0;
                             minute = 0;
                             timerIsOn = false;
+                            check = false;
+                            Log.i("zaza", "Timer is on : " + timerIsOn);
 //                            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //                            if (notification != null)
 //                            {
@@ -523,6 +540,21 @@ public class MainActivity extends AppCompatActivity
         });
 
     }
+
+    CountDownTimer oneSecDelay = new CountDownTimer(1000, 1000)
+    {
+        @Override
+        public void onTick(long millisUntilFinished)
+        {
+
+        }
+
+        @Override
+        public void onFinish()
+        {
+            minutesView.setText(String.valueOf(minute));
+        }
+    };
 
 
     private void pauseTimer()

@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity
                             {
                                 vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                                 vibrator.vibrate(pattern, -1);
-                                Snackbar snackBar = Snackbar.make(coordinatorLayout, "Time's up", 7000);
+                                Snackbar snackBar = Snackbar.make(coordinatorLayout, "Time's up", 6000);
 //                                View view = snackBar.getView();
 //                                TextView textView = (TextView) view.findViewById(android.support.design.R.id.snackbar_text);
 //                                textView.setTextColor(ResourcesCompat.getColor(getResources(), R.color.colorAccent, null));

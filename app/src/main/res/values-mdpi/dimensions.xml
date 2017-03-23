@@ -2,4 +2,5 @@
 <resources>
     <dimen name="switch_text_width">160dp</dimen>
     <dimen name="dialog_scroll_height">200dp</dimen>
+    <dimen name="progressBar_margin_top">25dp</dimen>
 </resources>

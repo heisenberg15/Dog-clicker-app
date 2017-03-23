@@ -32,7 +32,7 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/timer_background_id"
         android:layout_width="0dp"
-        android:layout_height="132dp"
+        android:layout_height="142dp"
         android:background="@color/colorPrimary"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -42,12 +42,13 @@
             android:id="@+id/set_training_timer_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="29dp"
-            android:layout_marginStart="29dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="16dp"
             android:text="@string/set_training_timer"
             android:textColor="@android:color/white"
-            android:textSize="15sp"
+            android:textSize="16sp"
+            android:alpha="0.95"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -74,11 +75,11 @@
             android:layout_marginLeft="2dp"
             android:text="0"
             android:textColor="@android:color/white"
-            android:textSize="27sp"
+            android:textSize="29sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/set_training_timer_id"
             app:layout_constraintTop_toBottomOf="@+id/set_training_timer_id"
-            app:layout_constraintVertical_bias="0.55"/>
+            app:layout_constraintVertical_bias="0.5"/>
 
 
         <ImageView
@@ -133,7 +134,7 @@
             android:layout_marginStart="20dp"
             android:text="0"
             android:textColor="@android:color/white"
-            android:textSize="27sp"
+            android:textSize="29sp"
             app:layout_constraintBottom_toBottomOf="@id/timer_minute_id"
             app:layout_constraintLeft_toLeftOf="@+id/colon_id"/>
 
@@ -187,6 +188,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
+        android:layout_marginTop="@dimen/progressBar_margin_top"
         android:progressDrawable="@drawable/apptheme_scrubber_progress_horizontal_holo_light"
         android:thumb="@drawable/apptheme_scrubber_control_selector_holo_light"
         app:layout_constraintBottom_toTopOf="@+id/click_image_id"
@@ -197,14 +199,14 @@
 
     <ImageView
         android:id="@+id/click_image_id"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:background="@color/colorAccent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/test_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timer_background_id"
-        app:layout_constraintVertical_bias="0.6"/>
+        app:layout_constraintVertical_bias="0.68"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout_id"

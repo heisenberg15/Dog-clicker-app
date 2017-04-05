@@ -9,4 +9,14 @@
     <string name="help_dialog_helper">How to use DogClicker</string>
     <string name="cancel">CANCEL</string>
     <string name="set_training_timer">Set training timer</string>
+    <string name="help_text">
+        Simple clicker can be very powerful tool to teach your dog or cat new behaviours.
+        Here are some tips for using clicker:
+
+        1. Before you can use the clicker for training purposes, you will need to teach your dog what the clicker means to him. While you are in the room with your dog, press on the clicker once. When your dog turns to you at the sound of the click, immediately give him the treat. Repeat this several times.
+        2. Pay attention how your\'r dog reacts to the clicker. Some dogs may be sensitive to the sound of the clicker. If your dog runs away when he hears the clicker, the sound is probably a little too harsh for him, so turn down a volume little bit.
+        1. Once your dog has learned what to expect with the sound of the clicker, you can use it to train him to do different commands. Click during desired behavior not after it is completed. The timing of the click is crucial.
+        2. Always Follow a Click with a Treat.Remember that the Clicker is the signal that a reward is coming, rather than being the reward itself.
+        3.
+    </string>
 </resources>

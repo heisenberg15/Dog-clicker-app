@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 public class SettingsActivity extends AppCompatActivity
 {
     Toolbar toolbar;
     Switch aSwitch;
+    View toggleSwitchView;
     static boolean switchIsOn;
 
     @Override
@@ -20,11 +23,22 @@ public class SettingsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         aSwitch = (Switch) findViewById(R.id.switch_id);
+        toggleSwitchView = findViewById(R.id.toggle_switch_view_id);
+
+        toggleSwitchView.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                aSwitch.toggle();
+            }
+        });
 
         setSwitchUi();
         initToolbar();
         checkSwitch();
     }
+
 
     void initToolbar()
     {

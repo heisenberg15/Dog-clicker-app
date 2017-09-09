@@ -18,12 +18,23 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@android:color/white" />
 
+    <View
+        android:id="@+id/toggle_switch_view_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"
+        app:layout_constraintTop_toBottomOf="@+id/settings_toolbar_id"
+        app:layout_constraintBottom_toTopOf="@+id/divider_id"
+        app:layout_constraintLeft_toLeftOf="@+id/switch_text_id"
+        app:layout_constraintRight_toRightOf="parent"/>
+
     <TextView
         android:id="@+id/switch_text_id"
         android:layout_width="@dimen/switch_text_width"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
         android:layout_marginTop="24dp"
         android:text="@string/use_volume_buttons_to_make_sound"
         android:textColor="@color/settings_text_color"
@@ -47,7 +58,7 @@
         android:layout_marginTop="24dp"
         android:alpha="0.12"
         android:background="@android:color/black"
-        app:layout_constraintLeft_toLeftOf="@+id/switch_text_id"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switch_text_id" />
 
@@ -59,11 +70,13 @@
         android:background="?attr/selectableItemBackground"
         android:paddingBottom="18dp"
         android:paddingTop="24dp"
+        android:paddingStart="12dp"
+        android:paddingLeft="12dp"
         android:alpha="0.87"
         android:text="@string/Rate_app"
         android:textColor="@color/settings_text_color"
         android:textSize="16sp"
-        app:layout_constraintLeft_toLeftOf="@+id/divider_id"
+        app:layout_constraintLeft_toLeftOf="@+id/switch_text_id"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider_id" />
 

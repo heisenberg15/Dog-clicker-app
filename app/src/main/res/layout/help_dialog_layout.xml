@@ -9,6 +9,7 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
@@ -68,7 +69,7 @@
         android:clickable="true"
         android:padding="8dp"
         android:text="@string/cancel"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/colorPrimary"
         android:textStyle="bold"/>
 
 </LinearLayout>

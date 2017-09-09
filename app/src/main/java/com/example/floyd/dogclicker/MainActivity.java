@@ -263,6 +263,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
         decreaseMinutes.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -331,13 +332,20 @@ public class MainActivity extends AppCompatActivity
 
 
                 if (timerIsOn) {
+
+                    if (second == 0 && minute == 0)
+                    {
+                        timerIsOn = false;
+                        return;
+                    }
+
                     fab.setImageResource(R.drawable.ic_pause_white_24px);
+
                     countDownTimer = new CountDownTimer(timeLeft * 1000 + 1000, 1000)
                     {
                         @Override
                         public void onTick(long millisUntilFinished)
                         {
-
 
                             check = true;
                             secondsView.setText(String.valueOf(second));
@@ -348,8 +356,8 @@ public class MainActivity extends AppCompatActivity
                                 second = 60;
                             }
 
-                            Log.i("timer", "Second : " + second);
-                            Log.i("timer", "Timer is on : " + timerIsOn);
+//                            Log.i("timer", "Second : " + second);
+//                            Log.i("timer", "Timer is on : " + timerIsOn);
 
                             if (second == 0) {
                                 return;
@@ -537,6 +545,5 @@ public class MainActivity extends AppCompatActivity
         SharedPreferences settings = getSharedPreferences("settings", MODE_PRIVATE);
         SettingsActivity.switchIsOn = settings.getBoolean("switchIsOn", false);
     }
-
 
 }
